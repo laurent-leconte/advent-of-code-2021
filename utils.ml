@@ -23,3 +23,16 @@ let rec transpose = function
    | [] :: _ -> []
    | rows    -> 
        List.map List.hd rows :: transpose (List.map List.tl rows)
+
+let acc_str to_string acc x = acc ^ (to_string x) ^ " "
+
+let print_array to_string arr =
+     let f = acc_str to_string in
+     print_endline @@ Array.fold_left f "" arr
+
+let print_int_array = print_array string_of_int
+
+let print_matrix to_string mat =
+    let _ = Array.map (print_array to_string) mat in ()
+
+let print_int_matrix = print_matrix string_of_int
