@@ -15,13 +15,13 @@ let sum_three soundings =
             loop ((x + y + z)::res) tl in
     List.rev (loop [] soundings)
 
-let result1 = "day1.dat"
+let result1 = "inputs/day1.dat"
     |> Utils.read_lines
     |> List.map int_of_string
     |> count_increasing
     |> string_of_int
 
-let result2 = "day1.dat"
+let result2 = "inputs/day1.dat"
     |> Utils.read_lines
     |> List.map int_of_string
     |> sum_three

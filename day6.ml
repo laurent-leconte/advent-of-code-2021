@@ -23,5 +23,5 @@ let rec simulate n pop =
 let day6 duration input =
     input |> make_pop |> simulate duration |> Array.fold_left (+) 0
 
-let () = print_endline @@ string_of_int @@ day6 80 @@ parse_input "day6.dat"
-let () = print_endline @@ string_of_int @@ day6 256 @@ parse_input "day6.dat"
+let () = print_endline @@ string_of_int @@ day6 80 @@ parse_input "inputs/day6.dat"
+let () = print_endline @@ string_of_int @@ day6 256 @@ parse_input "inputs/day6.dat"

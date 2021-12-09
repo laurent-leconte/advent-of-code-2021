@@ -68,6 +68,6 @@ let day3_2 input =
     let co2 = life_support_rating CO2 numbers in
     ox*co2
 
-let () = print_endline @@ string_of_int @@ day3_1 "day3.dat"
+let () = print_endline @@ string_of_int @@ day3_1 "inputs/day3.dat"
 
-let () = print_endline @@ string_of_int @@ day3_2 "day3.dat"
+let () = print_endline @@ string_of_int @@ day3_2 "inputs/day3.dat"

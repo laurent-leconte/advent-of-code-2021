@@ -85,4 +85,4 @@ let day4 input =
     print_endline @@ "Last game won: " ^ (string_of_int @@ score last_won)
 
 
-let () = day4 "day4.dat"
+let () = day4 "inputs/day4.dat"

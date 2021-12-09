@@ -27,14 +27,14 @@ let rec travel2 horizontal depth aim = function
             | Up -> travel2 horizontal depth (aim - dist) xs
             | Down -> travel2 horizontal depth (aim + dist) xs
 
-let result1 = "day2.dat"
+let result1 = "inputs/day2.dat"
     |> Utils.read_lines
     |> List.map parse_line
     |> travel 0 0
 
 let () = print_endline ("Result 1 " ^ (string_of_int ((fst result1) * (snd result1))))
 
-let result2 = "day2.dat"
+let result2 = "inputs/day2.dat"
     |> Utils.read_lines
     |> List.map parse_line
     |> travel2 0 0 0

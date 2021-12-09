@@ -68,5 +68,5 @@ let day5 diagonal input =
         |> string_of_int
         |> print_endline
 
-let () = day5 false "day5.dat"
-let () = day5 true "day5.dat"
+let () = day5 false "inputs/day5.dat"
+let () = day5 true "inputs/day5.dat"
