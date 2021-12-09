@@ -24,6 +24,11 @@ let rec transpose = function
    | rows    -> 
        List.map List.hd rows :: transpose (List.map List.tl rows)
 
+let range a b = 
+    let start = min a b in
+    let stop = max a b in
+    List.init (stop - start + 1) (fun x -> start + x)
+
 let acc_str to_string acc x = acc ^ (to_string x) ^ " "
 
 let print_array to_string arr =
