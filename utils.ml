@@ -29,6 +29,7 @@ let rec transpose = function
    | rows    -> 
        List.map List.hd rows :: transpose (List.map List.tl rows)
 
+(* returns a range from a to b inclusive *)
 let range a b = 
     let start = min a b in
     let stop = max a b in
