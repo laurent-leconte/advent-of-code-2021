@@ -49,6 +49,21 @@ let iterij f mat =
         done
     done
 
+(* Array doesn't have a foldi method, so implementing one ourselves *)
+let foldi f x arr =
+  let r = ref x in
+  for i = 0 to (Array.length arr - 1) do
+    r := f i !r arr.(i)
+  done;
+  !r
+
+(* foldij for matrices *)
+let foldij f =
+    let fold_row i x arr =
+        let g = f i in 
+        foldi g x arr in
+    foldi fold_row
+
 let read_matrix file =
     let data = read_lines file in
     let n = List.length data in
