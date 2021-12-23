@@ -77,6 +77,18 @@ let read_matrix file =
     (ground, n, m)
 
 
+(** memoize a recursive function **)
+let memo_rec f =
+  let h = Hashtbl.create 16 in
+  let rec g x =
+    try Hashtbl.find h x
+    with Not_found ->
+      let y = f g x in
+      Hashtbl.add h x y;
+      y
+  in
+  g
+
 (** print functions **)
 
 let acc_str to_string acc x = acc ^ (to_string x) ^ " "
