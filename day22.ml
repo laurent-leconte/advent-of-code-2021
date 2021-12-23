@@ -60,29 +60,51 @@ let parse_line s =
     let z1, z2 = parse_coord z in
     (int_of_inst instruction, Cube(x1, x2, y1, y2, z1, z2))
 
+let remove_nones = List.filter (fun (i, c) -> c <> None)
+let inter (_, c1) (s, c2) = (-s, inter_cube c1 c2) 
+let is_positive (s, _) = s > 0
+
+let rec build_intersections previous intersections = function
+    | [] -> previous@intersections
+    | a::tl ->
+        let new_inters = remove_nones @@ List.map (inter a) (previous@intersections) in
+        let new_prev = if is_positive a then a::previous else previous in
+        build_intersections new_prev (intersections@new_inters) tl
+
+let count_all instructions =
+    let all = build_intersections [] [] instructions in 
+    let add_volumes acc (s, c) = acc + s*volume c in
+    List.fold_left add_volumes 0 all
+
 let part1 size input = 
     let core = Cube(-size, size, -size, size, -size, size) in
     let crop_to_core (inst, c) = (inst, inter_cube core c) in
     input
-        |> Utils.read_lines
         |> List.map parse_line
         |> List.map crop_to_core
-        |> List.fold_left add_or_remove Points.empty 
+        |> List.fold_left add_or_remove Points.empty
         |> Points.cardinal
 
-let remove_nones = List.filter (fun (i, c) -> c <> None)
-let inter (_, c1) (s, c2) = (-s, inter_cube c1 c2) 
+let solve size input = 
+    let core = Cube(-size, size, -size, size, -size, size) in
+    let crop_to_core (inst, c) = (inst, inter_cube core c) in
+    input
+        |> List.map parse_line
+        |> List.map crop_to_core
+        |> count_all
 
-let rec build_intersections previous intersections = function
-    | [] -> intersections
-    | a::tl ->
-        let new_inters = remove_nones @@ List.map (inter a) previous@intersections in
-        build_intersections (a::previous) (intersections@new_inters) tl
 
-let count_all instructions =
-    let intersections = build_intersections [] [] instructions in 
-    let add_volumes acc (s, c) = acc + s*volume c in
-    let is_positive (s, _) = s > 0 in
-    List.fold_left add_volumes 0 ((List.filter is_positive instructions)@intersections)
+let compare input =
+    print_endline "yeah";
+    let lines = Utils.read_lines input in
+    let n = List.length lines in
+    let rec loop = function
+        | 1 -> ()
+        | k -> 
+            let slice, _ = Utils.take (n - k + 1) lines in
+            Printf.printf "%d %d %d\n" (n - k + 1) (part1 50 slice) (solve 50 slice);
+            loop (k-1) in
+    loop n
 
-let () = Printf.printf "Part1 : %d\n" (part1 50 "inputs/day22.dat")
+let () = Printf.printf "Part1 : %d\n" (solve 50 (Utils.read_lines "inputs/day22.dat"))
+let () = Printf.printf "Part1 : %d\n" (solve 1000000 (Utils.read_lines "inputs/day22.dat"))

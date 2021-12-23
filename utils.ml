@@ -37,6 +37,12 @@ let range a b =
 
 let sum = List.fold_left (+) 0
 
+let take n l = 
+    let rec loop hd tl = function
+        | 0 -> (List.rev hd, tl)
+        | n -> loop ((List.hd tl)::hd) (List.tl tl) (n-1) in
+    loop [] l n
+
 (** matrix helper functions **)
 let dim m =
     (Array.length m, Array.length m.(0))
